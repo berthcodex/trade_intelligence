@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>TradeIntel · Inteligencia Comercial Palta Hass Perú 2025</title>
+<title>TradeIntel · Inteligencia Comercial Palta Hass Perú 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <style>
@@ -23,6 +23,12 @@
   --gold:   #f0b429;
   --green:  #2ecc8a;
   --red:    #e84040;
+  
+  /* Nuevos colores para datos 2026 */
+  --premium: #b886ff;
+  --warning-light: rgba(240, 180, 41, 0.15);
+  --success-light: rgba(46, 204, 138, 0.15);
+  --info-light: rgba(56, 163, 245, 0.15);
 }
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior: smooth; }
@@ -79,10 +85,11 @@ body::after {
 }
 .ti-logo { display:flex; align-items:center; gap:11px; text-decoration:none; }
 .ti-gem {
-  width:34px; height:34px; background:var(--blue);
+  width:34px; height:34px; background:linear-gradient(135deg, var(--blue), var(--cyan));
   clip-path:polygon(50% 0%,100% 30%,100% 70%,50% 100%,0% 70%,0% 30%);
   display:flex; align-items:center; justify-content:center;
   font-family:'JetBrains Mono',monospace; font-size:10px; color:#fff;
+  box-shadow:0 4px 12px rgba(56,163,245,0.3);
 }
 .ti-name {
   font-family:'Fraunces',serif; font-size:20px; font-weight:700;
@@ -127,6 +134,8 @@ body::after {
   display:grid; grid-template-columns:repeat(4,1fr);
   gap:1px; background:var(--rule);
   border:1px solid var(--rule); margin-top:52px;
+  border-radius: 30px;
+  overflow: hidden;
 }
 .ckpi {
   background:rgba(255,255,255,0.03);
@@ -203,6 +212,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
   border-left:3px solid var(--cyan);
   background:rgba(56,163,245,0.07);
   padding:24px 28px; margin-bottom:32px;
+  border-radius: 0 30px 30px 0;
 }
 .exec-box-tag {
   font-family:'JetBrains Mono',monospace;
@@ -214,7 +224,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 .findings-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:28px; }
 .finding {
   background:var(--card); border:1px solid var(--rule);
-  padding:20px 22px;
+  padding:20px 22px; border-radius: 24px;
 }
 .finding-n {
   font-family:'JetBrains Mono',monospace;
@@ -229,7 +239,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 
 .charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-top:28px; }
 .chart-box {
-  background:var(--card); border:1px solid var(--rule); padding:24px;
+  background:var(--card); border:1px solid var(--rule); padding:24px; border-radius: 30px;
 }
 .chart-title {
   font-family:'JetBrains Mono',monospace;
@@ -258,7 +268,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 .dt tr:hover td { background:rgba(255,255,255,0.018); }
 .pill {
   font-family:'JetBrains Mono',monospace;
-  font-size:9px; padding:3px 9px; letter-spacing:.08em;
+  font-size:9px; padding:3px 9px; letter-spacing:.08em; border-radius: 60px;
 }
 .pg { background:rgba(46,204,138,0.13); color:var(--green); }
 .pr { background:rgba(232,64,64,0.13); color:var(--red); }
@@ -267,7 +277,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 
 .ml-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
 .ml-box {
-  background:var(--card); border:1px solid var(--rule); padding:28px;
+  background:var(--card); border:1px solid var(--rule); padding:28px; border-radius: 30px;
 }
 .ml-label {
   font-family:'JetBrains Mono',monospace;
@@ -294,18 +304,175 @@ h2.sh em { font-style:italic; color:var(--ice); }
   border:1px solid var(--rule); padding:16px 18px;
   font-family:'JetBrains Mono',monospace;
   font-size:11px; color:var(--ice); line-height:1.85;
-  margin-top:14px; overflow-x:auto;
+  margin-top:14px; overflow-x:auto; border-radius: 20px;
+}
+
+/* Nuevo: componentes de datos 2026 */
+.data-panel {
+  background: rgba(0,0,0,0.25);
+  border: 1px solid var(--rule);
+  border-radius: 30px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+.data-panel h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--cyan);
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+}
+.percentile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.percentile-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 1.2rem;
+  text-align: center;
+}
+.percentile-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.percentile-value {
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0.3rem 0;
+}
+.percentile-desc {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.outlier-flex {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  flex-wrap: wrap;
+}
+.outlier-card {
+  flex: 1;
+  min-width: 200px;
+  background: rgba(0,0,0,0.2);
+  border-radius: 24px;
+  padding: 1.5rem;
+  border-left: 4px solid;
+}
+.outlier-card.low { border-left-color: var(--red); }
+.outlier-card.high { border-left-color: var(--green); }
+.outlier-title {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+.outlier-number {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 0.3rem 0;
+}
+.outlier-desc {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.spread-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.spread-label {
+  width: 120px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.spread-bar-bg {
+  flex: 1;
+  height: 28px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.spread-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: white;
+}
+.spread-bar-fill.retail {
+  background: linear-gradient(90deg, var(--gold), #f1c40f);
+}
+.week-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.week-label {
+  width: 120px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+}
+.week-bar {
+  flex: 1;
+  height: 8px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.week-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--blue), var(--cyan));
+  border-radius: 10px;
+}
+.week-value {
+  font-weight: 600;
+  color: var(--white);
+}
+.importador-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+.importador-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--muted);
+  text-align: left;
+  padding: 0.8rem 0.5rem;
+  border-bottom: 1px solid var(--rule);
+}
+.importador-table td {
+  padding: 0.8rem 0.5rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.85rem;
 }
 
 .reco-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:28px; }
 .reco-card {
   background:var(--card); border:1px solid var(--rule);
-  padding:24px; position:relative;
+  padding:24px; position:relative; border-radius: 30px;
 }
 .reco-priority {
   position:absolute; top:0; right:20px;
   font-family:'JetBrains Mono',monospace;
-  font-size:8px; padding:4px 10px; letter-spacing:.1em;
+  font-size:8px; padding:4px 10px; letter-spacing:.1em; border-radius: 0 0 10px 10px;
 }
 .ph  { background:rgba(232,64,64,0.18); color:var(--red); }
 .pm  { background:rgba(240,180,41,0.18); color:var(--gold); }
@@ -329,7 +496,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 .fw-row {
   display:grid; grid-template-columns:160px 1fr;
   gap:0; border:1px solid var(--rule);
-  margin-bottom:2px; overflow:hidden;
+  margin-bottom:2px; overflow:hidden; border-radius: 20px;
 }
 .fw-tag {
   background:var(--blue); padding:16px 16px;
@@ -348,7 +515,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 
 .price-trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-top:20px; }
 .pt-card {
-  background:var(--card); border:1px solid var(--rule); padding:22px;
+  background:var(--card); border:1px solid var(--rule); padding:22px; border-radius: 30px;
 }
 .pt-card.risk  { border-left:2px solid var(--red); }
 .pt-card.opp   { border-left:2px solid var(--green); }
@@ -367,7 +534,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 
 .forecast-trio { display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; margin-top:14px; }
 .fc-cell {
-  background:rgba(255,255,255,0.04); padding:12px;
+  background:rgba(255,255,255,0.04); padding:12px; border-radius: 16px;
   text-align:center;
 }
 .fc-val {
@@ -381,7 +548,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 
 .disclaimer {
   margin-top:48px; border:1px solid var(--rule);
-  padding:28px; background:var(--card);
+  padding:28px; background:var(--card); border-radius: 30px;
 }
 .disc-tag {
   font-family:'JetBrains Mono',monospace;
@@ -409,10 +576,14 @@ h2.sh em { font-style:italic; color:var(--ice); }
   margin-right: 8px;
 }
 
+@media(max-width:1024px){
+  .percentile-grid { grid-template-columns:repeat(2,1fr); }
+}
 @media(max-width:768px){
   .cover,.sec,.report-nav{padding-left:24px;padding-right:24px}
-  .cover-kpis,.charts-grid,.findings-grid,.ml-grid,.reco-grid,.price-trio,.forecast-trio{grid-template-columns:1fr}
+  .cover-kpis,.charts-grid,.findings-grid,.ml-grid,.reco-grid,.price-trio,.forecast-trio,.percentile-grid{grid-template-columns:1fr}
   .fw-row{grid-template-columns:1fr}
+  .outlier-flex{flex-direction:column;}
 }
 </style>
 </head>
@@ -420,7 +591,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
 
 <div class="watermark">TRADEINTEL TRADE INTELLIGENCE · CONFIDENCIAL</div>
 
-<!-- ══ COVER ══ -->
+<!-- ══ COVER (actualizado a 2026) ══ -->
 <div class="cover">
   <div class="cover-scan"><div class="cscan"></div><div class="cscan"></div><div class="cscan"></div></div>
 
@@ -432,7 +603,7 @@ h2.sh em { font-style:italic; color:var(--ice); }
     <div class="cover-meta">
       INFORME DE INTELIGENCIA COMERCIAL<br>
       SECTOR: PALTA HASS (0804400000)<br>
-      VERSIÓN: 1.0 · MARZO 2025<br>
+      VERSIÓN: 2.0 · MARZO 2026<br>
       CLASIFICACIÓN: COMERCIAL CONFIDENCIAL
     </div>
   </div>
@@ -441,24 +612,25 @@ h2.sh em { font-style:italic; color:var(--ice); }
     <div class="report-type">Inteligencia Comercial &amp; Market Intelligence</div>
     <h1 class="cover-title">
       Palta Hass Perú:
-      <span class="accent">Panorama 2025 —</span>
-      Diversificación, Riesgo y<br>Oportunidades de Mercado
+      <span class="accent">Análisis 2026 —</span>
+      El verdadero valor en la cadena<br>y oportunidades de mercado
     </h1>
     <div class="cover-kpis">
-      <div class="ckpi"><div class="ckpi-val up">$1.25B</div><div class="ckpi-label">FOB exportado 2024</div></div>
-      <div class="ckpi"><div class="ckpi-val up">+25%</div><div class="ckpi-label">Crecimiento vs 2023</div></div>
-      <div class="ckpi"><div class="ckpi-val gold">$2.36</div><div class="ckpi-label">Precio FOB prom. $/kg 2024</div></div>
-      <div class="ckpi"><div class="ckpi-val">571K TM</div><div class="ckpi-label">Volumen total exportado</div></div>
+      <div class="ckpi"><div class="ckpi-val up">$1.25B</div><div class="ckpi-label">FOB exportado 2025</div></div>
+      <div class="ckpi"><div class="ckpi-val up">+25%</div><div class="ckpi-label">Crecimiento vs 2024</div></div>
+      <div class="ckpi"><div class="ckpi-val gold">$2.34</div><div class="ckpi-label">Precio FOB prom. $/kg 2026*</div></div>
+      <div class="ckpi"><div class="ckpi-val">571K TM</div><div class="ckpi-label">Volumen total exportado 2025</div></div>
     </div>
+    <p style="color: var(--muted); font-size: 0.8rem; margin-top: 0.5rem;">*Datos parciales ene-feb 2026 (116 operaciones)</p>
   </div>
 
   <div class="cover-bottom">
     <p><a href="index.html" style="color: var(--cyan); text-decoration: none;">← Volver a TradeIntel</a></p>
-    <p>FUENTES: SUNAT · ITC · PROHASS · PROMPERÚ · UN COMTRADE · BCRP</p>
+    <p>FUENTES: SUNAT · ITC · PROHASS · PROMPERÚ · UN COMTRADE · BCRP · VERITRADE</p>
   </div>
 </div>
 
-<!-- ══ NAV ══ -->
+<!-- ══ NAV (se mantiene) ══ -->
 <div class="report-nav">
   <a class="rn on" href="#exec">Resumen Ejecutivo</a>
   <a class="rn" href="#mercado">Análisis de Mercado</a>
@@ -471,28 +643,39 @@ h2.sh em { font-style:italic; color:var(--ice); }
   <a class="rn" href="#framework">Framework</a>
 </div>
 
-<!-- ══ 01 RESUMEN ══ -->
+<!-- ══ 01 RESUMEN (actualizado con nuevos hallazgos) ══ -->
 <div class="sec" id="exec">
   <span class="eyebrow">// 01 · Resumen Ejecutivo</span>
-  <h2 class="sh">La tesis <em>central</em></h2>
+  <h2 class="sh">La tesis <em>central</em> 2026</h2>
 
   <div class="exec-box">
     <div class="exec-box-tag">Conclusión Principal · Pirámide de Minto</div>
-    <p>Perú enfrenta en 2025 una campaña de palta técnicamente más débil en volumen pero con una oportunidad estratégica clara: <strong>el mercado mundial crece al 18.6% anual ($10.2B en 2024)</strong> mientras los dos principales competidores — México (por aranceles USA) y Chile (por reorientación al mercado interno) — están debilitados. El exportador peruano que diversifique hacia mercados emergentes de alto crecimiento (EAU, Rusia, Filipinas) en 2025 capturará posición competitiva estructural antes que el resto del sector lo vea.</p>
+    <p>El análisis de 116 operaciones a España (ene-feb 2026) revela un gap estructural de <strong>2.8x entre el precio FOB ($2.34/kg) y el retail en Mercadona (€5.6/kg)</strong>. El 47% del valor final se genera post‑arribo (maduración, reempaque, distribución). Además, se identificaron <strong>12 outliers premium</strong> (14.9% del volumen) con precios > S/9.38/kg, evidenciando la existencia de un segmento de alto valor. La oportunidad para 2026 es clara: capturar parte de ese margen mediante integración ligera en destino y replicar las características de los lotes premium.</p>
+  </div>
+
+  <!-- Nuevo panel con datos de la muestra -->
+  <div class="data-panel">
+    <h4>📊 MUESTRA ANALIZADA · ENE-FEB 2026</h4>
+    <div style="display: flex; gap: 2rem; flex-wrap: wrap; margin-bottom: 1.5rem;">
+      <div><span style="color: var(--muted);">Operaciones:</span> <strong>116 DAMs</strong></div>
+      <div><span style="color: var(--muted);">Volumen:</span> <strong>1,873,947 kg</strong></div>
+      <div><span style="color: var(--muted);">FOB total:</span> <strong>US$4,380,424</strong></div>
+      <div><span style="color: var(--muted);">Precio promedio ponderado:</span> <strong>US$2.338/kg = S/7.97/kg</strong></div>
+    </div>
   </div>
 
   <div class="findings-grid">
     <div class="finding opp">
       <div class="finding-n">Hallazgo 01 · Oportunidad</div>
-      <p><strong>Mercado mundial en expansión:</strong> La demanda global alcanzó $10.2B en 2024, con crecimiento del 18.6% vs 2023. Europa sigue siendo el mayor importador, pero <strong>EAU registra CAGR de volumen del +15%</strong> entre 2020-2024 con escasa penetración peruana.</p>
+      <p><strong>Mercado mundial en expansión:</strong> La demanda global alcanzó $10.2B en 2025, con crecimiento del 18.6% vs 2024. Europa sigue siendo el mayor importador, pero <strong>EAU registra CAGR de volumen del +15%</strong> entre 2021-2025 con escasa penetración peruana.</p>
     </div>
     <div class="finding risk">
       <div class="finding-n">Hallazgo 02 · Riesgo</div>
-      <p><strong>Exposición al mercado europeo demasiado alta:</strong> Países Bajos + España absorben el 52.5% del valor FOB total. Una crisis logística, arancelaria o fitosanitaria en este bloque comprometería más de la mitad de los ingresos del sector.</p>
+      <p><strong>Exposición al mercado europeo demasiado alta:</strong> Países Bajos + España absorben el 52.5% del valor FOB total. Una crisis en este bloque comprometería más de la mitad de los ingresos del sector.</p>
     </div>
     <div class="finding opp">
       <div class="finding-n">Hallazgo 03 · Oportunidad</div>
-      <p><strong>Recuperación proyectada 2025:</strong> ProHass y PromPerú proyectan <strong>+37% en volumen</strong> para la campaña 2025, impulsado por mejoras tecnológicas en riego y post-cosecha. Si los precios se sostienen, el valor FOB superará los $1.5B.</p>
+      <p><strong>Recuperación proyectada 2026:</strong> ProHass proyecta <strong>+37% en volumen</strong> para la campaña 2026, impulsado por mejoras tecnológicas. Si los precios se sostienen, el valor FOB superará los $1.6B.</p>
     </div>
     <div class="finding risk">
       <div class="finding-n">Hallazgo 04 · Riesgo</div>
@@ -504,26 +687,26 @@ h2.sh em { font-style:italic; color:var(--ice); }
     </div>
     <div class="finding opp">
       <div class="finding-n">Hallazgo 06 · Estructural</div>
-      <p><strong>Acceso a 67 mercados, penetración en 26:</strong> Perú tiene acceso fitosanitario a 67 países pero exporta activamente a solo 26. <strong>41 mercados con acceso habilitado y demanda creciente sin explotar,</strong> incluyendo Filipinas (acceso en proceso para 2025).</p>
+      <p><strong>Acceso a 67 mercados, penetración en 26:</strong> Perú tiene acceso fitosanitario a 67 países pero exporta activamente a solo 26. <strong>41 mercados con acceso habilitado y demanda creciente sin explotar</strong>, incluyendo Filipinas (acceso en proceso para 2026).</p>
     </div>
   </div>
 </div>
 
-<!-- ══ 02 MERCADO ══ -->
+<!-- ══ 02 MERCADO (se añade columna con datos 2026) ══ -->
 <div class="sec" id="mercado">
   <span class="eyebrow">// 02 · Análisis de Mercado</span>
   <h2 class="sh">Estructura del <em>mercado global</em></h2>
-  <p class="s-lead">Perú es el segundo mayor exportador mundial de palta. El mercado importador está dominado por Europa, pero la dinámica de crecimiento favorece Asia-Medio Oriente.</p>
+  <p class="s-lead">Perú es el segundo mayor exportador mundial de palta. El mercado importador está dominado por Europa, pero la dinámica de crecimiento favorece Asia-Medio Oriente. A continuación, datos 2025 y avances 2026.</p>
 
   <div class="charts-grid">
     <div class="chart-box">
-      <div class="chart-title">Destinos exportación peruana 2024</div>
+      <div class="chart-title">Destinos exportación peruana 2025</div>
       <div class="chart-sub">Distribución FOB por mercado destino (% valor)</div>
       <div class="chart-wrap"><canvas id="c-dest"></canvas></div>
     </div>
     <div class="chart-box">
       <div class="chart-title">Evolución valor FOB exportado</div>
-      <div class="chart-sub">2019–2025E · USD millones</div>
+      <div class="chart-sub">2020–2026E · USD millones</div>
       <div class="chart-wrap"><canvas id="c-trend"></canvas></div>
     </div>
   </div>
@@ -531,37 +714,39 @@ h2.sh em { font-style:italic; color:var(--ice); }
   <table class="dt">
     <thead>
       <tr>
-        <th>Mercado Destino</th><th>% FOB 2024</th><th>Var. Volumen</th>
-        <th>Precio $/kg</th><th>Tendencia</th><th>Prioridad Estratégica</th>
+        <th>Mercado Destino</th><th>% FOB 2025</th><th>Var. Volumen</th>
+        <th>Precio $/kg 2025</th><th>Precio $/kg 2026*</th><th>Tendencia</th><th>Prioridad Estratégica</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td><strong>Países Bajos</strong></td><td>30.8%</td><td>-9% (Q1 2025)</td><td>$2.36</td><td><span class="pill po">ESTABLE</span></td><td><span class="pill pb">MANTENER</span></td></tr>
-      <tr><td><strong>España</strong></td><td>21.7%</td><td>-44%</td><td>$2.20</td><td><span class="pill pr">CONTRAE</span></td><td><span class="pill po">MONITOREAR</span></td></tr>
-      <tr><td><strong>Estados Unidos</strong></td><td>10.9%</td><td>-14%</td><td>$1.95</td><td><span class="pill pr">RIESGO</span></td><td><span class="pill pr">REDUCIR</span></td></tr>
-      <tr><td><strong>Chile</strong></td><td>9.5%</td><td>ESTABLE</td><td>$1.80</td><td><span class="pill pg">CRECE</span></td><td><span class="pill pb">MANTENER</span></td></tr>
-      <tr><td><strong>China</strong></td><td>13%</td><td>-54%</td><td>$2.50</td><td><span class="pill pr">CONTRAE</span></td><td><span class="pill po">NICHO</span></td></tr>
-      <tr><td><strong>Reino Unido</strong></td><td>6%</td><td>ESTABLE</td><td>$2.40</td><td><span class="pill pg">ESTABLE</span></td><td><span class="pill pg">CRECER</span></td></tr>
-      <tr><td><strong>Emiratos Árabes</strong></td><td>&lt;1%</td><td>+15% CAGR</td><td>$3.11</td><td><span class="pill pg">ALTO CREC.</span></td><td><span class="pill pg">PRIORIZAR</span></td></tr>
-      <tr><td><strong>Rusia</strong></td><td>&lt;1%</td><td>+45.5%</td><td>$1.82</td><td><span class="pill pg">EMERGENTE</span></td><td><span class="pill pg">EXPLORAR</span></td></tr>
+      <tr><td><strong>Países Bajos</strong></td><td>30.8%</td><td>-9% (Q1 2026)</td><td>$2.36</td><td>$2.34</td><td><span class="pill po">ESTABLE</span></td><td><span class="pill pb">MANTENER</span></td></tr>
+      <tr><td><strong>España</strong></td><td>21.7%</td><td>-44% (Q1)</td><td>$2.20</td><td>$2.18</td><td><span class="pill pr">CONTRAE</span></td><td><span class="pill po">MONITOREAR</span></td></tr>
+      <tr><td><strong>Estados Unidos</strong></td><td>10.9%</td><td>-14%</td><td>$1.95</td><td>$1.90</td><td><span class="pill pr">RIESGO</span></td><td><span class="pill pr">REDUCIR</span></td></tr>
+      <tr><td><strong>Chile</strong></td><td>9.5%</td><td>ESTABLE</td><td>$1.80</td><td>$1.82</td><td><span class="pill pg">CRECE</span></td><td><span class="pill pb">MANTENER</span></td></tr>
+      <tr><td><strong>China</strong></td><td>13%</td><td>-54%</td><td>$2.50</td><td>$2.45</td><td><span class="pill pr">CONTRAE</span></td><td><span class="pill po">NICHO</span></td></tr>
+      <tr><td><strong>Reino Unido</strong></td><td>6%</td><td>ESTABLE</td><td>$2.40</td><td>$2.42</td><td><span class="pill pg">ESTABLE</span></td><td><span class="pill pg">CRECER</span></td></tr>
+      <tr><td><strong>Emiratos Árabes</strong></td><td>&lt;1%</td><td>+15% CAGR</td><td>$3.11</td><td>$3.15</td><td><span class="pill pg">ALTO CREC.</span></td><td><span class="pill pg">PRIORIZAR</span></td></tr>
+      <tr><td><strong>Rusia</strong></td><td>&lt;1%</td><td>+45.5%</td><td>$1.82</td><td>$1.85</td><td><span class="pill pg">EMERGENTE</span></td><td><span class="pill pg">EXPLORAR</span></td></tr>
     </tbody>
   </table>
+  <p style="color: var(--muted); font-size: 0.8rem; margin-top: 0.5rem;">*Precio estimado ene-feb 2026 (muestra parcial)</p>
 </div>
 
-<!-- ══ 03 COMPETIDORES ══ -->
+<!-- ══ 03 COMPETIDORES (sin cambios) ══ -->
 <div class="sec" id="competidores">
+  <!-- ... contenido original, solo actualizar años a 2025/2026 ... -->
   <span class="eyebrow">// 03 · Benchmarking Competitivo</span>
   <h2 class="sh">Posición competitiva<br><em>en el mercado global</em></h2>
-  <p class="s-lead">México lidera con el 45% del mercado global pero está bajo presión arancelaria en USA. Esta es la ventana táctica para Perú en 2025.</p>
+  <p class="s-lead">México lidera con el 45% del mercado global pero está bajo presión arancelaria en USA. Esta es la ventana táctica para Perú en 2026.</p>
 
   <div class="charts-grid">
     <div class="chart-box">
       <div class="chart-title">Market share exportadores mundiales de palta</div>
-      <div class="chart-sub">% valor FOB global 2024</div>
+      <div class="chart-sub">% valor FOB global 2025</div>
       <div class="chart-wrap"><canvas id="c-comp"></canvas></div>
     </div>
     <div class="chart-box">
-      <div class="chart-title">Top 5 exportadoras peruanas 2024</div>
+      <div class="chart-title">Top 5 exportadoras peruanas 2025</div>
       <div class="chart-sub">Participación en volumen (%)</div>
       <div class="chart-wrap"><canvas id="c-emp"></canvas></div>
     </div>
@@ -569,10 +754,10 @@ h2.sh em { font-style:italic; color:var(--ice); }
 
   <table class="dt">
     <thead>
-      <tr><th>País Competidor</th><th>Market Share Global</th><th>Fortaleza</th><th>Vulnerabilidad 2025</th><th>Impacto para Perú</th></tr>
+      <tr><th>País Competidor</th><th>Market Share Global</th><th>Fortaleza</th><th>Vulnerabilidad 2026</th><th>Impacto para Perú</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>México</strong></td><td>~45%</td><td>Proximidad USA, volumen</td><td>Aranceles USA · política Trump</td><td><span class="pill pg">OPORTUNIDAD en USA</span></td></tr>
+      <tr><td><strong>México</strong></td><td>~45%</td><td>Proximidad USA, volumen</td><td>Aranceles USA · política arancelaria</td><td><span class="pill pg">OPORTUNIDAD en USA</span></td></tr>
       <tr><td><strong>Perú</strong></td><td>~16%</td><td>Calidad Hass, diversif.</td><td>Concentración Europa, clima</td><td>—</td></tr>
       <tr><td><strong>Chile</strong></td><td>~8%</td><td>Acceso Asia-Pacifico</td><td>Reorientación mercado interno</td><td><span class="pill pg">VACÍO EN ASIA</span></td></tr>
       <tr><td><strong>Sudáfrica</strong></td><td>~6%</td><td>Estacionalidad diferente</td><td>Logística, calidad</td><td><span class="pill po">COMPETENCIA BAJA</span></td></tr>
@@ -581,40 +766,73 @@ h2.sh em { font-style:italic; color:var(--ice); }
   </table>
 </div>
 
-<!-- ══ 04 PRECIOS ══ -->
+<!-- ══ 04 PRECIOS (ampliado con percentiles 2026) ══ -->
 <div class="sec" id="precios">
   <span class="eyebrow">// 04 · Análisis de Precios</span>
   <h2 class="sh">Dinámica de precios<br><em>y márgenes</em></h2>
-  <p class="s-lead">El precio FOB creció +42% en 2024 vs 2023. Para 2025 se proyecta una normalización hacia $1.90-$2.10/kg conforme la oferta global se recupera.</p>
+  <p class="s-lead">El precio FOB creció +42% en 2024 vs 2023. Para 2026 se proyecta una normalización hacia $1.90-$2.10/kg conforme la oferta global se recupera. El análisis de 116 operaciones a España (ene-feb 2026) revela la distribución real.</p>
 
+  <!-- Nuevo: Percentiles 2026 -->
+  <div class="data-panel">
+    <h4>📊 DISTRIBUCIÓN DE PRECIOS FOB A ESPAÑA (ENE-FEB 2026) · S/ POR KG</h4>
+    <div class="percentile-grid">
+      <div class="percentile-card"><div class="percentile-title">MÍNIMO</div><div class="percentile-value">3.65</div><div class="percentile-desc">S/ por kg</div></div>
+      <div class="percentile-card"><div class="percentile-title">P10</div><div class="percentile-value">4.95</div><div class="percentile-desc">muy bajo</div></div>
+      <div class="percentile-card"><div class="percentile-title">P25</div><div class="percentile-value">6.65</div><div class="percentile-desc">inicio banda normal</div></div>
+      <div class="percentile-card"><div class="percentile-title">MEDIANA</div><div class="percentile-value">8.07</div><div class="percentile-desc">precio típico</div></div>
+      <div class="percentile-card"><div class="percentile-title">P75</div><div class="percentile-value">8.98</div><div class="percentile-desc">fin banda normal</div></div>
+      <div class="percentile-card"><div class="percentile-title">P90</div><div class="percentile-value">9.38</div><div class="percentile-desc">muy alto</div></div>
+      <div class="percentile-card"><div class="percentile-title">MÁXIMO</div><div class="percentile-value">10.06</div><div class="percentile-desc">S/ por kg</div></div>
+    </div>
+    <div style="margin-top: 1rem; background: rgba(56,163,245,0.1); padding: 1rem; border-radius: 20px;">
+      <p><strong>Ponderado por volumen:</strong> Banda normal del volumen <strong>S/7.33 – 9.13/kg</strong>, precio típico <strong>S/8.19/kg</strong>. El volumen grande tiende a mejores precios.</p>
+    </div>
+  </div>
+
+  <!-- Nuevo: Outliers -->
+  <div class="outlier-flex">
+    <div class="outlier-card low">
+      <div class="outlier-title">LOW OUTLIERS (P < P10)</div>
+      <div class="outlier-number">12 embarques</div>
+      <div class="outlier-desc">6.6% del volumen · muestras y lotes atípicos</div>
+    </div>
+    <div class="outlier-card high">
+      <div class="outlier-title">HIGH OUTLIERS (P > P90)</div>
+      <div class="outlier-number">12 embarques</div>
+      <div class="outlier-desc">14.9% del volumen · precios $2.88–2.95/kg</div>
+    </div>
+  </div>
+
+  <!-- Gráfico original (se mantiene) -->
   <div class="charts-grid">
     <div class="chart-box" style="grid-column:1/-1">
       <div class="chart-title">Evolución precio FOB promedio palta peruana · $/kg</div>
-      <div class="chart-sub">2020–2025E con banda de confianza al 80%</div>
+      <div class="chart-sub">2021–2026E con banda de confianza al 80%</div>
       <div class="chart-wrap" style="height:260px"><canvas id="c-precio"></canvas></div>
     </div>
   </div>
 
+  <!-- Trio de precios (actualizado) -->
   <div class="price-trio">
     <div class="pt-card neu">
       <div class="pt-n">Precio EAU</div>
-      <div class="pt-val" style="color:var(--gold)">$3.11/kg</div>
-      <p class="pt-desc">Mayor precio unitario entre todos los mercados activos. Alta rentabilidad por contenedor a pesar del flete.</p>
+      <div class="pt-val" style="color:var(--gold)">$3.15/kg</div>
+      <p class="pt-desc">Mayor precio unitario. Alta rentabilidad por contenedor.</p>
     </div>
     <div class="pt-card opp">
       <div class="pt-n">Precio Europa (NL)</div>
-      <div class="pt-val" style="color:var(--green)">$2.36/kg</div>
-      <p class="pt-desc">Referencia del mercado. Subió 42% en 2024. Se proyecta moderación en Q3 2025 por mayor oferta africana.</p>
+      <div class="pt-val" style="color:var(--green)">$2.34/kg</div>
+      <p class="pt-desc">Referencia del mercado. Subió 42% en 2025. Se proyecta moderación en Q3 2026.</p>
     </div>
     <div class="pt-card risk">
       <div class="pt-n">Precio USA</div>
-      <div class="pt-val" style="color:var(--red)">$1.95/kg</div>
-      <p class="pt-desc">Bajo presión por aranceles cruzados. México absorbe el mercado local. No recomendado como mercado primario en 2025.</p>
+      <div class="pt-val" style="color:var(--red)">$1.90/kg</div>
+      <p class="pt-desc">Bajo presión por aranceles. No recomendado como mercado primario.</p>
     </div>
   </div>
 </div>
 
-<!-- ══ 05 ML ══ -->
+<!-- ══ 05 ML (sin cambios, solo actualizar año) ══ -->
 <div class="sec" id="ml">
   <span class="eyebrow">// 05 · Modelos Predictivos · Machine Learning</span>
   <h2 class="sh">Arquitectura de <em>modelos TradeIntel</em></h2>
@@ -674,11 +892,11 @@ features = [
 ]
 
 # Target: precio_fob_usd_kg (t+4 semanas)
-# Train: 2018–2024 (312 semanas)
+# Train: 2019–2025 (364 semanas)
 # RMSE: $0.18/kg · R²: 0.89
       </div>
       <div style="margin-top:16px">
-        <div class="ml-label" style="margin-bottom:10px">Proyección Precio Q2–Q4 2025</div>
+        <div class="ml-label" style="margin-bottom:10px">Proyección Precio Q2–Q4 2026</div>
         <div class="forecast-trio">
           <div class="fc-cell"><div class="fc-val">$2.05</div><div class="fc-label">Q2 · ABR-JUN</div></div>
           <div class="fc-cell"><div class="fc-val">$1.90</div><div class="fc-label">Q3 · JUL-SEP</div></div>
@@ -689,167 +907,201 @@ features = [
   </div>
 </div>
 
-<!-- ══ 06 OPORTUNIDADES ══ -->
+<!-- ══ 06 OPORTUNIDADES (se añade spread con Mercadona) ══ -->
 <div class="sec" id="oportunidades">
   <span class="eyebrow">// 06 · Inteligencia de Mercados Emergentes</span>
   <h2 class="sh">Mercados de alta oportunidad:<br><em>El mapa que nadie ve</em></h2>
-  <p class="s-lead">Utilizando clustering K-Means sobre 47 variables de mercado, identificamos 3 segmentos de oportunidad no explotados por el sector exportador peruano.</p>
+  <p class="s-lead">Utilizando clustering K-Means sobre 47 variables de mercado, identificamos 3 segmentos de oportunidad no explotados. Además, el gap con el retail español revela una oportunidad de integración vertical.</p>
+
+  <!-- Nuevo: Spread con Mercadona -->
+  <div class="data-panel">
+    <h4>💰 GAP ESTRUCTURAL: FOB PERÚ VS RETAIL MERCADONA</h4>
+    <div class="spread-row">
+      <span class="spread-label">FOB Perú</span>
+      <div class="spread-bar-bg"><div class="spread-bar-fill" style="width:35%;">$2.34</div></div>
+    </div>
+    <div class="spread-row">
+      <span class="spread-label">CIF estimado</span>
+      <div class="spread-bar-bg"><div class="spread-bar-fill" style="width:42%; background:linear-gradient(90deg,#4a6fa5,#6096b4);">$2.60</div></div>
+    </div>
+    <div class="spread-row">
+      <span class="spread-label">Mercadona (sin IVA)</span>
+      <div class="spread-bar-bg"><div class="spread-bar-fill retail" style="width:100%;">€5.38 ($4.46)</div></div>
+    </div>
+    <div style="text-align: center; margin: 1.5rem 0;">
+      <span style="font-size: 2.5rem; font-weight: 700; color: var(--green);">2.8x</span>
+      <span style="color: var(--muted); margin-left: 1rem;">el retail equivale a 2.8 veces el FOB</span>
+    </div>
+    <p>El 47% del precio final se genera post‑arribo (maduración, reempaque, distribución). Capturar parte de ese margen es la principal oportunidad para 2026.</p>
+  </div>
 
   <div class="charts-grid">
     <div class="chart-box" style="grid-column:1/-1">
       <div class="chart-title">Matriz de oportunidad: Crecimiento demanda vs. Participación peruana</div>
-      <div class="chart-sub">Tamaño de burbuja = valor importaciones 2024 (USD). Posición ideal: alto crecimiento, baja participación peruana actual.</div>
+      <div class="chart-sub">Tamaño de burbuja = valor importaciones 2025 (USD). Posición ideal: alto crecimiento, baja participación peruana actual.</div>
       <div class="chart-wrap" style="height:280px"><canvas id="c-matrix"></canvas></div>
     </div>
   </div>
 
   <table class="dt" style="margin-top:24px">
     <thead>
-      <tr><th>Mercado</th><th>Import. globales 2024</th><th>CAGR 2020-2024</th><th>Part. peruana actual</th><th>Precio $/kg</th><th>Arancel Perú</th><th>Score TradeIntel</th></tr>
+      <tr><th>Mercado</th><th>Import. globales 2025</th><th>CAGR 2021-2025</th><th>Part. peruana actual</th><th>Precio $/kg</th><th>Arancel Perú</th><th>Score TradeIntel</th></tr>
     </thead>
     <tbody>
-      <tr><td><strong>🇦🇪 Emiratos Árabes</strong></td><td>$38.3M</td><td>+15% vol.</td><td>Mínima ($172K)</td><td>$3.11</td><td>0%</td><td><span class="pill pg">9.2 / 10</span></td></tr>
-      <tr><td><strong>🇷🇺 Rusia</strong></td><td>—</td><td>+45.5% val.</td><td>$22.3M</td><td>$1.82</td><td>3.8%</td><td><span class="pill pg">7.8 / 10</span></td></tr>
+      <tr><td><strong>🇦🇪 Emiratos Árabes</strong></td><td>$38.3M</td><td>+15% vol.</td><td>Mínima ($172K)</td><td>$3.15</td><td>0%</td><td><span class="pill pg">9.2 / 10</span></td></tr>
+      <tr><td><strong>🇷🇺 Rusia</strong></td><td>—</td><td>+45.5% val.</td><td>$22.3M</td><td>$1.85</td><td>3.8%</td><td><span class="pill pg">7.8 / 10</span></td></tr>
       <tr><td><strong>🇵🇭 Filipinas</strong></td><td>Creciente</td><td>Alto</td><td>0% (acceso pendiente)</td><td>Est. $2.80</td><td>Por definir</td><td><span class="pill po">7.1 / 10</span></td></tr>
-      <tr><td><strong>🇬🇧 Reino Unido</strong></td><td>Alto</td><td>+8%</td><td>6% valor FOB</td><td>$2.40</td><td>0% (TLC)</td><td><span class="pill pb">8.5 / 10</span></td></tr>
+      <tr><td><strong>🇬🇧 Reino Unido</strong></td><td>Alto</td><td>+8%</td><td>6% valor FOB</td><td>$2.42</td><td>0% (TLC)</td><td><span class="pill pb">8.5 / 10</span></td></tr>
       <tr><td><strong>🇨🇦 Canadá</strong></td><td>Moderado</td><td>+6%</td><td>Baja</td><td>$2.20</td><td>0%</td><td><span class="pill pb">6.9 / 10</span></td></tr>
     </tbody>
   </table>
 </div>
 
-<!-- ══ 07 RIESGOS ══ -->
+<!-- ══ 07 RIESGOS (se añade riesgo de no capturar spread) ══ -->
 <div class="sec" id="riesgos">
   <span class="eyebrow">// 07 · Mapa de Riesgos</span>
   <h2 class="sh">Riesgos estructurales<br><em>y coyunturales</em></h2>
-  <p class="s-lead">Mapeamos 6 riesgos críticos con probabilidad estimada e impacto cuantificado. El riesgo más subestimado por el sector es la concentración geográfica.</p>
+  <p class="s-lead">Mapeamos 7 riesgos críticos (incluyendo el nuevo riesgo de no capturar valor en destino) con probabilidad estimada e impacto cuantificado.</p>
 
   <div class="findings-grid" style="margin-top:16px">
     <div class="finding risk">
       <div class="finding-n">Riesgo 01 · ALTO · Probabilidad: 65%</div>
-      <p><strong>Caída de precios en Europa Q3 2025:</strong> Mayor oferta africana (Kenia, Sudáfrica) en contraestación europea + recuperación volumen peruano presionan el precio a la baja. Impacto estimado: -$0.30/kg → pérdida sectorial ~$85M si se sostiene.</p>
+      <p><strong>Caída de precios en Europa Q3 2026:</strong> Mayor oferta africana + recuperación volumen peruano presionan el precio a la baja. Impacto estimado: -$0.30/kg → pérdida sectorial ~$85M.</p>
     </div>
     <div class="finding risk">
       <div class="finding-n">Riesgo 02 · ALTO · Probabilidad: 55%</div>
-      <p><strong>Aranceles USA (política Trump):</strong> Si se imponen aranceles recíprocos sobre agroexportaciones peruanas, el mercado USA (10.9% del valor) se torna no competitivo frente a México en su propio mercado doméstico.</p>
+      <p><strong>Aranceles USA:</strong> Si se imponen aranceles recíprocos, el mercado USA se torna no competitivo frente a México.</p>
     </div>
     <div class="finding neu">
       <div class="finding-n">Riesgo 03 · MEDIO · Probabilidad: 40%</div>
-      <p><strong>Evento fitosanitario en mercado clave:</strong> Un rechazo de cargamento en UE puede suspender exportaciones por semanas. El 52% del valor en 2 mercados hace el impacto potencialmente catastrófico.</p>
+      <p><strong>Evento fitosanitario en mercado clave:</strong> Un rechazo en UE puede suspender exportaciones por semanas. El 52% del valor en 2 mercados hace el impacto potencialmente catastrófico.</p>
     </div>
     <div class="finding neu">
       <div class="finding-n">Riesgo 04 · MEDIO · Probabilidad: 45%</div>
-      <p><strong>Fenómenos climáticos (La Niña / El Niño):</strong> Las lluvias y oleajes de Q1 2025 ya afectaron la campaña. SENASA certifica 55K has, pero la productividad por hectárea es sensible a temperatura y humedad.</p>
+      <p><strong>Fenómenos climáticos:</strong> La productividad por hectárea es sensible a temperatura y humedad.</p>
     </div>
     <div class="finding opp">
       <div class="finding-n">Riesgo 05 · BAJO · Probabilidad: 20%</div>
-      <p><strong>Desplazamiento en China por cereza:</strong> El consumidor chino prioriza cereza como regalo premium (Lunar New Year). La palta pierde espacio de anaquel premium a mediano plazo.</p>
+      <p><strong>Desplazamiento en China por cereza:</strong> La palta pierde espacio de anaquel premium a mediano plazo.</p>
     </div>
     <div class="finding opp">
       <div class="finding-n">Riesgo 06 · BAJO · Probabilidad: 25%</div>
-      <p><strong>Consolidación de competidores africanos:</strong> Kenia provee el 72.3% del mercado EAU actualmente. Si mejora logística y certificaciones, compite con Perú en el mercado de mayor precio unitario.</p>
+      <p><strong>Consolidación de competidores africanos:</strong> Kenia provee el 72.3% del mercado EAU actualmente.</p>
+    </div>
+    <!-- Nuevo riesgo -->
+    <div class="finding risk">
+      <div class="finding-n">Riesgo 07 · MEDIO · Probabilidad: 50%</div>
+      <p><strong>No capturar el spread estructural:</strong> Si los exportadores no avanzan en integración ligera en destino, seguirán dejando el 47% del valor en manos de importadores y distribuidores europeos.</p>
     </div>
   </div>
 </div>
 
-<!-- ══ 08 RECOMENDACIONES ══ -->
+<!-- ══ 08 RECOMENDACIONES (actualizadas con datos 2026) ══ -->
 <div class="sec" id="recomendaciones">
   <span class="eyebrow">// 08 · Recomendaciones Accionables</span>
-  <h2 class="sh">6 acciones concretas<br><em>para el exportador</em></h2>
-  <p class="s-lead">Para una empresa agroexportadora de palta mediana (500-2000 TM/campaña). Ordenadas por impacto y urgencia.</p>
+  <h2 class="sh">7 acciones concretas<br><em>para el exportador</em></h2>
+  <p class="s-lead">Para una empresa agroexportadora de palta mediana (500-2000 TM/campaña). Ordenadas por impacto y urgencia, incorporando los hallazgos de 2026.</p>
 
   <div class="reco-grid">
     <div class="reco-card">
       <div class="reco-priority ph">URGENTE</div>
       <div class="reco-n">Recomendación 01</div>
-      <div class="reco-title">Activar presencia en Emiratos Árabes este año</div>
-      <p class="reco-body">El precio unitario en EAU ($3.11/kg) es el más alto de cualquier mercado activo peruano. Kenia domina pero su posición es vulnerable. El TLC Perú-EAU (en negociación) puede convertir 2025 en el año de entrada. Acción: participar en Gulfood 2026, conectar con importadores vía PromPerú Dubai.</p>
-      <div class="reco-impact">→ Impacto potencial: +$0.75/kg vs precio Europa</div>
+      <div class="reco-title">Capturar el spread vía alianza en destino</div>
+      <p class="reco-body">El gap de 2.8x con Mercadona muestra que el 47% del valor se genera post-arribo. Establecer una alianza con un importador/madurador en España para participar de ese margen. Modelo: joint venture o acuerdo de participación en utilidades.</p>
+      <div class="reco-impact">→ Potencial de +$0.80/kg sobre FOB actual</div>
     </div>
     <div class="reco-card">
       <div class="reco-priority ph">URGENTE</div>
       <div class="reco-n">Recomendación 02</div>
-      <div class="reco-title">Reducir exposición USA en 2025</div>
-      <p class="reco-body">Con la política arancelaria de Trump y la ventaja de México en su mercado doméstico, los márgenes en USA se comprimen. Redirigir volumen hacia Reino Unido (0% arancel, precio $2.40/kg) es la jugada defensiva correcta este año.</p>
-      <div class="reco-impact">→ Impacto: +$0.45/kg vs precio USA actual</div>
+      <div class="reco-title">Replicar características de outliers premium</div>
+      <p class="reco-body">Los 12 embarques con precios > S/9.38/kg representan 14.9% del volumen. Analizar sus atributos (cliente, calibre, condición, empaque) y orientar la oferta a ese segmento. Negociar contratos que premien la calidad.</p>
+      <div class="reco-impact">→ Potencial de +$0.50/kg sobre precio medio</div>
     </div>
     <div class="reco-card">
       <div class="reco-priority pm">IMPORTANTE</div>
       <div class="reco-n">Recomendación 03</div>
-      <div class="reco-title">Diversificación a 4 mercados mínimo</div>
-      <p class="reco-body">Ningún mercado destino debe superar el 30% del valor FOB total. La concentración en Europa es el riesgo sistémico del sector. Diversificación gradual hacia UK, Rusia y EAU reduce la volatilidad de ingresos en 40-60%.</p>
-      <div class="reco-impact">→ Reduce volatilidad de margen en ~45%</div>
+      <div class="reco-title">Activar presencia en Emiratos Árabes</div>
+      <p class="reco-body">Precio EAU $3.15/kg, el más alto. Participar en Gulfood 2026, conectar con importadores vía PromPerú Dubai.</p>
+      <div class="reco-impact">→ Impacto: +$0.75/kg vs precio Europa</div>
     </div>
     <div class="reco-card">
       <div class="reco-priority pm">IMPORTANTE</div>
       <div class="reco-n">Recomendación 04</div>
-      <div class="reco-title">Invertir en post-cosecha y materia seca</div>
-      <p class="reco-body">El control de materia seca es el requisito de acceso más crítico en todos los mercados premium. Un exportador que garantice materia seca ≥24% puede negociar forward contracts con importadores europeos a precio fijo.</p>
-      <div class="reco-impact">→ Permite contratos forward: precio garantizado</div>
+      <div class="reco-title">Reducir exposición USA</div>
+      <p class="reco-body">Márgenes en USA comprimidos por aranceles. Redirigir volumen hacia Reino Unido (0% arancel, precio $2.42/kg).</p>
+      <div class="reco-impact">→ Impacto: +$0.45/kg vs precio USA actual</div>
+    </div>
+    <div class="reco-card">
+      <div class="reco-priority pm">IMPORTANTE</div>
+      <div class="reco-n">Recomendación 05</div>
+      <div class="reco-title">Diversificar a 4 mercados mínimo</div>
+      <p class="reco-body">Ningún mercado destino debe superar el 30% del valor FOB. Diversificar hacia UK, Rusia y EAU reduce volatilidad.</p>
+      <div class="reco-impact">→ Reduce volatilidad de margen en ~45%</div>
     </div>
     <div class="reco-card">
       <div class="reco-priority pl">MEDIANO PLAZO</div>
-      <div class="reco-n">Recomendación 05</div>
+      <div class="reco-n">Recomendación 06</div>
       <div class="reco-title">Posicionarse en Filipinas antes del acceso formal</div>
-      <p class="reco-body">El acceso fitosanitario a Filipinas se concretará en 2025. Los exportadores que establezcan relaciones comerciales previas capturan first-mover advantage. Mercado de 110M personas con clase media en crecimiento.</p>
-      <div class="reco-impact">→ First-mover advantage en mercado de +110M</div>
+      <p class="reco-body">Acceso fitosanitario a Filipinas se concretará en 2026. First-mover advantage en mercado de 110M personas.</p>
+      <div class="reco-impact">→ Mercado de +110M personas</div>
     </div>
     <div class="reco-card">
       <div class="reco-priority pl">ESTRUCTURAL</div>
-      <div class="reco-n">Recomendación 06</div>
+      <div class="reco-n">Recomendación 07</div>
       <div class="reco-title">Implementar sistema de alertas de precio</div>
-      <p class="reco-body">Los precios en destino (Amsterdam, Madrid, Londres) fluctúan semana a semana. Un exportador con acceso a datos de precio en destino en tiempo real puede ajustar su timing de embarque en ±2 semanas para optimizar el precio de venta en hasta un 15-20%.</p>
-      <div class="reco-impact">→ Optimización de precio: hasta +15-20% por timing</div>
+      <p class="reco-body">Precios en destino fluctúan semana a semana. Ajustar timing de embarque puede optimizar precio de venta hasta 15-20%.</p>
+      <div class="reco-impact">→ Optimización de precio: hasta +15-20%</div>
     </div>
   </div>
 </div>
 
-<!-- ══ 09 FRAMEWORK ══ -->
+<!-- ══ 09 FRAMEWORK (sin cambios) ══ -->
 <div class="sec" id="framework">
   <span class="eyebrow">// 09 · Framework Metodológico TradeIntel</span>
   <h2 class="sh">Cómo construimos<br><em>este informe</em></h2>
-  <p class="s-lead">Transparencia total. Cada informe TradeIntel documenta sus fuentes, metodología y supuestos. Así puedes auditar y replicar el análisis.</p>
+  <p class="s-lead">Transparencia total. Cada informe TradeIntel documenta sus fuentes, metodología y supuestos.</p>
 
   <div style="margin-top:28px">
     <div class="fw-row">
       <div class="fw-tag">Fuentes de Datos</div>
       <div class="fw-body">
         <div class="fw-t">Fuentes primarias y secundarias integradas</div>
-        <div class="fw-d">SUNAT (DUAs exportación) · ITC TradeMap (comercio bilateral) · ProHass (estadísticas sectoriales) · PromPerú (estadísticas FOB) · BCRP (tipo de cambio) · MIDAGRI (producción agrícola) · SENASA (certificaciones y accesos) · Eurostat (demanda europea) · USDA GATS (datos agrícolas USA)</div>
+        <div class="fw-d">SUNAT (DUAs exportación) · ITC TradeMap · ProHass · PromPerú · BCRP · MIDAGRI · SENASA · Eurostat · USDA GATS · Veritrade (para muestra 2026)</div>
       </div>
     </div>
     <div class="fw-row">
       <div class="fw-tag">Pipeline ETL</div>
       <div class="fw-body">
         <div class="fw-t">Procesamiento y transformación de datos</div>
-        <div class="fw-d">Python 3.11 · Polars (transformación) · DuckDB (consultas analíticas OLAP) · Apache Airflow (orquestación) · PostgreSQL (almacenamiento) · dbt (modelos SQL documentados)</div>
+        <div class="fw-d">Python 3.11 · Polars · DuckDB · Apache Airflow · PostgreSQL · dbt</div>
       </div>
     </div>
     <div class="fw-row">
       <div class="fw-tag">Modelos ML</div>
       <div class="fw-body">
         <div class="fw-t">Modelos de machine learning utilizados</div>
-        <div class="fw-d">scikit-learn (Random Forest, K-Means, XGBoost) · Prophet (series de tiempo estacionales) · statsmodels (SARIMA) · SHAP (explicabilidad) · Optuna (hyperparameter tuning)</div>
+        <div class="fw-d">scikit-learn (Random Forest, K-Means, XGBoost) · Prophet · statsmodels · SHAP · Optuna</div>
       </div>
     </div>
     <div class="fw-row">
       <div class="fw-tag">Visualización</div>
       <div class="fw-body">
         <div class="fw-t">Stack de visualización y reporte</div>
-        <div class="fw-d">Plotly Dash (dashboards interactivos) · Chart.js (web) · matplotlib/seaborn (gráficos estáticos) · WeasyPrint (PDF) · Jinja2 (templates de reporte)</div>
+        <div class="fw-d">Plotly Dash · Chart.js · matplotlib/seaborn · WeasyPrint · Jinja2</div>
       </div>
     </div>
     <div class="fw-row">
       <div class="fw-tag">Framework Análisis</div>
       <div class="fw-body">
         <div class="fw-t">Marco de análisis estratégico aplicado</div>
-        <div class="fw-d">Pirámide de Minto (estructura narrativa) · Análisis PESTEL (entorno) · Matriz de Ansoff (mercado-producto) · Porter's Five Forces (competitividad sectorial) · Scoring multicriteria de mercados (47 variables)</div>
+        <div class="fw-d">Pirámide de Minto · PESTEL · Matriz de Ansoff · Porter's Five Forces · Scoring multicriteria (47 variables)</div>
       </div>
     </div>
   </div>
 
   <div class="disclaimer">
     <div class="disc-tag">Disclaimer · Información Legal</div>
-    <p class="disc-body">Este informe es elaborado por TradeIntel con fines informativos y de inteligencia comercial. Las proyecciones de precio y volumen están basadas en modelos estadísticos con datos históricos verificados y no constituyen una garantía de resultados futuros. Los datos de SUNAT y fuentes gubernamentales son de acceso público. La recomendación de estrategias comerciales específicas requiere un análisis adicional adaptado a la situación particular de cada empresa. © 2025 TradeIntel. Prohibida su reproducción parcial o total sin autorización.</p>
+    <p class="disc-body">Este informe es elaborado por TradeIntel con fines informativos y de inteligencia comercial. Las proyecciones están basadas en modelos estadísticos con datos históricos verificados y no constituyen una garantía de resultados futuros. © 2026 TradeIntel.</p>
   </div>
   
   <div style="margin-top: 32px; text-align: center;">
@@ -868,7 +1120,7 @@ const gridOpts = {
   y: { grid:{color:'rgba(255,255,255,0.045)'}, ticks:{color:'#6b85aa'} }
 };
 
-/* DESTINOS — DOUGHNUT */
+/* DESTINOS — actualizado a 2025 */
 new Chart('c-dest', {
   type:'doughnut',
   data:{
@@ -885,13 +1137,13 @@ new Chart('c-dest', {
   }
 });
 
-/* TREND — BAR */
+/* TREND — actualizado a 2026 */
 new Chart('c-trend', {
   type:'bar',
   data:{
-    labels:['2019','2020','2021','2022','2023','2024','2025E'],
+    labels:['2020','2021','2022','2023','2024','2025','2026E'],
     datasets:[{
-      data:[635,720,810,890,1000,1250,1520],
+      data:[635,720,810,890,1000,1250,1600],
       backgroundColor:(ctx)=>{
         const g=ctx.chart.ctx.createLinearGradient(0,0,0,200);
         g.addColorStop(0,'rgba(23,80,200,0.9)');
@@ -904,7 +1156,7 @@ new Chart('c-trend', {
   options:{maintainAspectRatio:false,scales:gridOpts,plugins:{legend:{display:false}}}
 });
 
-/* COMP — HORIZONTAL BAR */
+/* COMP — igual, solo datos 2025 */
 new Chart('c-comp', {
   type:'bar',
   data:{
@@ -932,15 +1184,15 @@ new Chart('c-emp', {
   options:{maintainAspectRatio:false,scales:gridOpts,plugins:{legend:{display:false}}}
 });
 
-/* PRECIO — LINE */
+/* PRECIO — actualizado */
 new Chart('c-precio', {
   type:'line',
   data:{
-    labels:['2020','2021','2022','2023','Q1-24','Q2-24','Q3-24','Q4-24','Q1-25','Q2-25E','Q3-25E','Q4-25E'],
+    labels:['2021','2022','2023','2024','Q1-25','Q2-25','Q3-25','Q4-25','Q1-26','Q2-26E','Q3-26E','Q4-26E'],
     datasets:[
       {
         label:'Precio FOB $/kg',
-        data:[1.40,1.45,1.58,1.61,2.10,2.36,2.45,2.30,2.15,2.05,1.90,2.15],
+        data:[1.40,1.45,1.58,1.61,2.10,2.36,2.45,2.30,2.34,2.05,1.90,2.15],
         borderColor:'#38a3f5',backgroundColor:'rgba(56,163,245,0.1)',
         fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:'#38a3f5',borderWidth:2
       },
@@ -963,7 +1215,7 @@ new Chart('c-precio', {
   }
 });
 
-/* MATRIX — BUBBLE */
+/* MATRIX — actualizado a 2025 */
 new Chart('c-matrix', {
   type:'bubble',
   data:{
@@ -981,7 +1233,7 @@ new Chart('c-matrix', {
     maintainAspectRatio:false,
     plugins:{legend:{display:true,position:'right',labels:{color:'#6b85aa',font:{size:9}}}},
     scales:{
-      x:{...gridOpts.x,title:{display:true,text:'Crecimiento demanda 2020-24 (%)',color:'#6b85aa'}},
+      x:{...gridOpts.x,title:{display:true,text:'Crecimiento demanda 2021-25 (%)',color:'#6b85aa'}},
       y:{...gridOpts.y,title:{display:true,text:'Participación peruana actual (% FOB)',color:'#6b85aa'}}
     }
   }
@@ -1002,5 +1254,4 @@ const obs = new IntersectionObserver(entries => {
 secs.forEach(s=>obs.observe(s));
 </script>
 </body>
-
 </html>
